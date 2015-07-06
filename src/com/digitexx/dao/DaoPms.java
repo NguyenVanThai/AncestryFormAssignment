@@ -125,6 +125,23 @@ public class DaoPms {
 		return null;
 	}
 
+	public String getDate(String batchParen, String batch) {
+		String results = "";
+		String param = batchParen + "/" + batch;
+		String query = "select distinct b.amp_dpc_delivery from tbl_adv_manager_path as a, tbl_adv_manager_phases as b where b.amp_id in (select ami_phase_id from tbl_adv_manager_path where ami_filepath like '%"
+				+ param + "%')";
+		try (CachedRowSet rs = pgCon.retrieve(query, null)) {
+			while (rs.next()) {
+				results = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return results;
+
+	}
+
 	public static void main(String args[]) {
 		DaoPms s = new DaoPms();
 		DaoProduction1 daoProduction1 = new DaoProduction1(s.getListProject()
