@@ -243,7 +243,7 @@ public class JFrameSelectUserForForm extends JFrame {
 						jListForm = new JList();
 						jScrollPane3.setViewportView(jListForm);
 
-						jListForm.setPreferredSize(new java.awt.Dimension(264, 176));
+						jListForm.setPreferredSize(new java.awt.Dimension(301, 211));
 						jListForm
 								.addListSelectionListener(new ListSelectionListener() {
 									public void valueChanged(
