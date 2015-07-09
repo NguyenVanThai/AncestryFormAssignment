@@ -4,9 +4,12 @@ import com.cloudgarden.layout.AnchorLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
@@ -28,7 +31,6 @@ public class MainJFrame extends javax.swing.JFrame {
 	private JPanel jPanel1;
 	private JButton jButtonAssignment;
 	private JButton jButtonForm1;
-	private JButton jButtonForm2;
 	private JLabel jLabel1;
 
 	/**
@@ -52,6 +54,7 @@ public class MainJFrame extends javax.swing.JFrame {
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			this.setResizable(false);
 			{
 				jPanel1 = new JPanel();
 				AnchorLayout jPanel1Layout = new AnchorLayout();
@@ -59,25 +62,16 @@ public class MainJFrame extends javax.swing.JFrame {
 				getContentPane().add(jPanel1, BorderLayout.CENTER);
 				{
 					jLabel1 = new JLabel();
-					jPanel1.add(jLabel1, new AnchorConstraint(92, 650, 231, 371, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(jLabel1, new AnchorConstraint(113, 1000, 253, 0, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					jLabel1.setText("CHOOSE TYPE");
-					jLabel1.setFont(new java.awt.Font("Times New Roman",1,20));
-					jLabel1.setPreferredSize(new java.awt.Dimension(142, 46));
-				}
-				{
-					jButtonForm2 = new JButton();
-					jPanel1.add(jButtonForm2, new AnchorConstraint(677, 673, 813, 320, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
-					jButtonForm2.setText("FORM 2");
-					jButtonForm2.setPreferredSize(new java.awt.Dimension(180, 45));
-					jButtonForm2.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							jButtonForm2ActionPerformed(evt);
-						}
-					});
+					jLabel1.setFont(new java.awt.Font("Times New Roman",1,36));
+					jLabel1.setPreferredSize(new java.awt.Dimension(510, 46));
+					jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+					jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
 				}
 				{
 					jButtonForm1 = new JButton();
-					jPanel1.add(jButtonForm1, new AnchorConstraint(495, 673, 631, 320, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(jButtonForm1, new AnchorConstraint(446, 953, 583, 600, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					jButtonForm1.setText("FORM 1");
 					jButtonForm1.setPreferredSize(new java.awt.Dimension(180, 45));
 					jButtonForm1.addActionListener(new ActionListener() {
@@ -88,7 +82,7 @@ public class MainJFrame extends javax.swing.JFrame {
 				}
 				{
 					jButtonAssignment = new JButton();
-					jPanel1.add(jButtonAssignment, new AnchorConstraint(313, 673, 450, 320, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(jButtonAssignment, new AnchorConstraint(446, 410, 583, 57, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
 					jButtonAssignment.setText("FORM ASSIGNMENT");
 					jButtonAssignment.setPreferredSize(new java.awt.Dimension(180, 45));
 					jButtonAssignment.addActionListener(new ActionListener() {
@@ -107,19 +101,19 @@ public class MainJFrame extends javax.swing.JFrame {
 	}
 	
 	private void jButtonAssignmentActionPerformed(ActionEvent evt) {
-		JFrameSelectUserForForm assignment = new JFrameSelectUserForForm();
+		closeFrame();
+		JFrameSelectUserForForm assignment = new JFrameSelectUserForForm(new MainJFrame());
 		assignment.setVisible(true);
-		
+		assignment.setLocationRelativeTo(null);
 	}
 	
 	private void jButtonForm1ActionPerformed(ActionEvent evt) {
-		Form2 assignment = new Form2();
+		closeFrame();
+		Form2 assignment = new Form2(new MainJFrame());
 		assignment.setVisible(true);
+		assignment.setLocationRelativeTo(null);
 	}
-	
-	private void jButtonForm2ActionPerformed(ActionEvent evt) {
-		Form3 assignment = new Form3();
-		assignment.setVisible(true);
+	public void closeFrame(){
+	    super.dispose();
 	}
-
 }

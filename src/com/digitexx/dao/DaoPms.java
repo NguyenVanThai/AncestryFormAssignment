@@ -86,8 +86,8 @@ public class DaoPms {
 
 	public List<DtoProject> getListProject() {
 		List<DtoProject> results = new ArrayList<>();
-		String query = "select proj_id, proj_name, proj_schema, proj_uid, proj_pwd from tbl_projects where (proj_name like '%Ancestry%') and lower(proj_name) not like '%qc%' and lower(proj_name) not like '%training%'";
-
+		//String query = "select proj_id, proj_name, proj_schema, proj_uid, proj_pwd from tbl_projects where (proj_name like '%Ancestry%') and lower(proj_name) not like '%qc%' and lower(proj_name) not like '%training%'";
+		String query = "select proj_id, proj_name, proj_schema, proj_uid, proj_pwd from tbl_projects where (proj_name like '%Ancestry%') and (proj_uid like '%ancestry%' and lower(proj_name) not like '%qc%')";
 		try (CachedRowSet rs = pgCon.retrieve(query, null)) {
 			while (rs.next()) {
 				results.add(new DtoProject(rs.getInt(1), rs.getString(2), rs
@@ -157,12 +157,12 @@ public class DaoPms {
 
 	}
 
-	public static void main(String args[]) {
-		DaoPms s = new DaoPms();
-		DaoProduction1 daoProduction1 = new DaoProduction1(s.getListProject()
-				.get(0).getSchema(), s.getListProject().get(0).getUid(), s
-				.getListProject().get(0).getPassword());
-		// daoProduction1.getListForm();
-		// s.getListProject().get(0).getSchema();
-	}
+//	public static void main(String args[]) {
+//		DaoPms s = new DaoPms();
+//		DaoProduction1 daoProduction1 = new DaoProduction1(s.getListProject()
+//				.get(0).getSchema(), s.getListProject().get(0).getUid(), s
+//				.getListProject().get(0).getPassword());
+//		// daoProduction1.getListForm();
+//		// s.getListProject().get(0).getSchema();
+//	}
 }

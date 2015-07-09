@@ -69,22 +69,22 @@ public class JFrameUserAndGroup extends JFrame {
 	 * Auto-generated main method to display this JFrame
 	 */
 
-	public static void main(String[] args) {
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrameUserAndGroup inst = new JFrameUserAndGroup();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-
-				// ListModel jListGroupModelProject = new
-				// DefaultComboBoxModel(arrProject);
-				// jListProject.setModel(jListGroupModelProject);
-
-			}
-		});
-
-	}
+//	public static void main(String[] args) {
+//
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				JFrameUserAndGroup inst = new JFrameUserAndGroup();
+//				inst.setLocationRelativeTo(null);
+//				inst.setVisible(true);
+//
+//				// ListModel jListGroupModelProject = new
+//				// DefaultComboBoxModel(arrProject);
+//				// jListProject.setModel(jListGroupModelProject);
+//
+//			}
+//		});
+//
+//	}
 
 	public JFrameUserAndGroup() {
 		super();

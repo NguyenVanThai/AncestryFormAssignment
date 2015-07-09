@@ -180,11 +180,11 @@ public class DaoProduction1 {
 
 	}
 
-	public static void main(String args[]) {
-		DaoProduction1 daoProduction1 = new DaoProduction1(
-				"db_15_066_ancestry_44635", "ps_15_066_ancestry_44635",
-				"digi15_066_ancestry_44635");
-		daoProduction1.getListForm();
-	}
+//	public static void main(String args[]) {
+//		DaoProduction1 daoProduction1 = new DaoProduction1(
+//				"db_15_066_ancestry_44635", "ps_15_066_ancestry_44635",
+//				"digi15_066_ancestry_44635");
+//		daoProduction1.getListForm();
+//	}
 
 }
