@@ -37,16 +37,11 @@ import com.digitexx.dto.DtoInfo;
 public class BatchJDialog extends javax.swing.JDialog {
 	private JPanel jPanel1;
 	private JLabel jLabel2;
-	private JLabel jLabel3;
-	private JList jList2;
 	private JList jList1;
-	private JScrollPane jScrollPane3;
 	private JScrollPane jScrollPane2;
 	private JPanel jPanel3;
-	private JPanel jPanel2;
 	private JLabel jLabel1;
 	private JScrollPane jScrollPane1;
-	private JSplitPane jSplitPane1;
 	private JTable jTableInfo;
 	private DtoInfo dtoInfo;
 
@@ -59,15 +54,28 @@ public class BatchJDialog extends javax.swing.JDialog {
 		initGUI();
 		this.dtoInfo = dtoInfo;
 		String[] totalColumn = new String[] { "folder_batch", "batch", "date",
-				"total", "total_form", "total_finish", "total_unfinish" };
+				"form", "total", "total_form", "total_finish",
+				"total_unfinish", "total_user", "list_userb" };
 		DefaultTableModel jTable1Model = new DefaultTableModel(null,
 				totalColumn) {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
 				return false;
 			}
 		};
-		jTable1Model.addRow(dtoInfo.toArray(dtoInfo.getDate()));
-		jTableInfo.setModel(jTable1Model);
+		String[][] data = {
+				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
+						"Form 1", "300", "150", "100", "200", "500",
+						"Tuan, Toan, Diep" },
+				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
+						"Form 2", "400", "250", "200", "200", "500",
+						"Vu, Toan, Diep" },
+				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
+						"Form 3", "500", "350", "200", "300", "500",
+						"Thai, Toan, Diep" } };
+		//jTable1Model.addRow(dtoInfo.toArray(dtoInfo.getDate()));
+		TableModel jTableModel = new DefaultTableModel(
+				data, totalColumn);
+		jTableInfo.setModel(jTableModel);
 	}
 
 	private void initGUI() {
@@ -87,106 +95,58 @@ public class BatchJDialog extends javax.swing.JDialog {
 
 						jTableInfo = new JTable();
 						jScrollPane1.setViewportView(jTableInfo);
-						jTableInfo.setPreferredSize(new java.awt.Dimension(767,
-								26));
+						jTableInfo.setPreferredSize(new java.awt.Dimension(767, 107));
 						jTableInfo.setRowHeight(30);
 
 					}
 				}
 				{
-					jSplitPane1 = new JSplitPane();
-					jSplitPane1.setResizeWeight(0.5);
+					jPanel3 = new JPanel();
+					GroupLayout jPanel3Layout = new GroupLayout(
+							(JComponent) jPanel3);
+					jPanel3.setLayout(jPanel3Layout);
 					{
-						jPanel2 = new JPanel();
-						GroupLayout jPanel2Layout = new GroupLayout(
-								(JComponent) jPanel2);
-						jSplitPane1.add(jPanel2, JSplitPane.RIGHT);
-						jPanel2.setLayout(jPanel2Layout);
+						jScrollPane2 = new JScrollPane();
+						jScrollPane2.setBounds(0, 25, 376, 253);
 						{
-							jLabel3 = new JLabel();
-							jLabel3.setText("LIST USER");
-							jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
-							jLabel3.setHorizontalTextPosition(SwingConstants.CENTER);
-							jLabel3.setFont(new java.awt.Font(
-									"Times New Roman", 1, 20));
-							jLabel3.setBounds(0, 1, 376, 25);
+							ListModel jList1Model = new DefaultComboBoxModel(
+									new String[] { "Item One", "Item Two" });
+							jList1 = new JList();
+							jScrollPane2.setViewportView(jList1);
+							jList1.setModel(jList1Model);
 						}
-						{
-							jScrollPane3 = new JScrollPane();
-							jScrollPane3.setBounds(0, 24, 381, 253);
-							{
-								ListModel jList2Model = new DefaultComboBoxModel(
-										new String[] { "Item One", "Item Two" });
-								jList2 = new JList();
-								jScrollPane3.setViewportView(jList2);
-								jList2.setModel(jList2Model);
-							}
-						}
-						jPanel2Layout.setHorizontalGroup(jPanel2Layout
-								.createParallelGroup()
-								.addComponent(jLabel3,
-										GroupLayout.Alignment.LEADING, 0, 383,
-										Short.MAX_VALUE)
-								.addComponent(jScrollPane3,
-										GroupLayout.Alignment.LEADING, 0, 383,
-										Short.MAX_VALUE));
-						jPanel2Layout.setVerticalGroup(jPanel2Layout
-								.createSequentialGroup()
-								.addComponent(jLabel3,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(jScrollPane3, 0, 254,
-										Short.MAX_VALUE));
 					}
 					{
-						jPanel3 = new JPanel();
-						GroupLayout jPanel3Layout = new GroupLayout(
-								(JComponent) jPanel3);
-						jSplitPane1.add(jPanel3, JSplitPane.LEFT);
-						jPanel3.setLayout(jPanel3Layout);
-						{
-							jScrollPane2 = new JScrollPane();
-							jScrollPane2.setBounds(0, 25, 376, 253);
-							{
-								ListModel jList1Model = new DefaultComboBoxModel(
-										new String[] { "Item One", "Item Two" });
-								jList1 = new JList();
-								jScrollPane2.setViewportView(jList1);
-								jList1.setModel(jList1Model);
-							}
-						}
-						{
-							jLabel2 = new JLabel();
-							jLabel2.setText("LIST FORM");
-							jLabel2.setBounds(0, 0, 376, 25);
-							jLabel2.setFont(new java.awt.Font(
-									"Times New Roman", 1, 20));
-							jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-							jLabel2.setHorizontalTextPosition(SwingConstants.CENTER);
-						}
-						jPanel3Layout
-								.setHorizontalGroup(jPanel3Layout
-										.createParallelGroup()
-										.addComponent(jScrollPane2,
-												GroupLayout.Alignment.LEADING,
-												0, 376, Short.MAX_VALUE)
-										.addGroup(
-												jPanel3Layout
-														.createSequentialGroup()
-														.addComponent(jLabel2,
-																0, 376,
-																Short.MAX_VALUE)
-														.addPreferredGap(
-																LayoutStyle.ComponentPlacement.RELATED)));
-						jPanel3Layout.setVerticalGroup(jPanel3Layout
-								.createSequentialGroup()
-								.addComponent(jLabel2,
-										GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(jScrollPane2, 0, 253,
-										Short.MAX_VALUE));
+						jLabel2 = new JLabel();
+						jLabel2.setText("LIST USER");
+						jLabel2.setBounds(0, 0, 376, 25);
+						jLabel2.setFont(new java.awt.Font("Times New Roman", 1,
+								20));
+						jLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+						jLabel2.setHorizontalTextPosition(SwingConstants.CENTER);
 					}
+					jPanel3Layout
+							.setHorizontalGroup(jPanel3Layout
+									.createParallelGroup()
+									.addComponent(jScrollPane2,
+											GroupLayout.Alignment.LEADING, 0,
+											376, Short.MAX_VALUE)
+									.addGroup(
+											jPanel3Layout
+													.createSequentialGroup()
+													.addComponent(jLabel2, 0,
+															376,
+															Short.MAX_VALUE)
+													.addPreferredGap(
+															LayoutStyle.ComponentPlacement.RELATED)));
+					jPanel3Layout
+							.setVerticalGroup(jPanel3Layout
+									.createSequentialGroup()
+									.addComponent(jLabel2,
+											GroupLayout.PREFERRED_SIZE, 25,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(jScrollPane2, 0, 253,
+											Short.MAX_VALUE));
 				}
 				{
 					jLabel1 = new JLabel();
@@ -201,33 +161,17 @@ public class BatchJDialog extends javax.swing.JDialog {
 					jLabel1Layout.setHorizontalGroup(jLabel1Layout
 							.createSequentialGroup());
 				}
-				jPanel1Layout.setHorizontalGroup(jPanel1Layout
-						.createParallelGroup()
-						.addComponent(jSplitPane1,
-								GroupLayout.Alignment.LEADING, 0, 770,
-								Short.MAX_VALUE)
-						.addComponent(jLabel1, GroupLayout.Alignment.LEADING,
-								0, 770, Short.MAX_VALUE)
-						.addComponent(jScrollPane1,
-								GroupLayout.Alignment.LEADING, 0, 770,
-								Short.MAX_VALUE));
-				jPanel1Layout
-						.setVerticalGroup(jPanel1Layout
-								.createSequentialGroup()
-								.addGap(8)
-								.addComponent(jLabel1,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jScrollPane1,
-										GroupLayout.PREFERRED_SIZE, 49,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jSplitPane1, 0, 280,
-										Short.MAX_VALUE));
+				jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup()
+					.addComponent(jLabel1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
+					.addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
+					.addComponent(jPanel3, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE));
+				jPanel1Layout.setVerticalGroup(jPanel1Layout.createSequentialGroup()
+					.addGap(8)
+					.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+					.addGap(102)
+					.addComponent(jPanel3, 0, 104, Short.MAX_VALUE));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 					.addComponent(jPanel1, 0, 397, Short.MAX_VALUE));

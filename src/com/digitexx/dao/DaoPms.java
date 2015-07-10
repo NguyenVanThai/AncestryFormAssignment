@@ -19,7 +19,7 @@ public class DaoPms {
 		pgCon.loadConnectionFromParameters("10.10.5.10", "5432", "pms",
 				"db_09_000_pms", "ps_pms", "digipms");
 	}
-
+	
 	// public List<String> getListUser() {
 	// List<String> results = new ArrayList<>();
 	// String query = "select * from tbl_users";
@@ -106,7 +106,7 @@ public class DaoPms {
 	public int[] setListUser(List<Object[]> listParams) {
 
 		int[] results;
-		String query = "insert into digitexx (proj_id, proj_name,usr_id,usr_name,form_id,form_name) values (?,?,?,?,?,?)";
+		String query = "insert into tbl_digitexx (proj_id, proj_name,usr_id,usr_name,form_id,form_name) values (?,?,?,?,?,?)";
 		// listParams.add(new
 		// Object[]{222,"ancestry",222,"NguyeVanA",222,"Form1"});
 		// List<Object[]> listParams = new ArrayList<>();
@@ -144,7 +144,7 @@ public class DaoPms {
 
 	public List<String> getListUser(String nameForm) {
 		List<String> results = new ArrayList<String>();
-		String query = "select distinct usr_name from digitexx where form_name = '"+nameForm+"'";
+		String query = "select distinct usr_name from tbl_digitexx where form_name = '"+nameForm+"'";
 		try (CachedRowSet rs = pgCon.retrieve(query, null)) {
 			while (rs.next()) {
 				results.add(rs.getString(1));

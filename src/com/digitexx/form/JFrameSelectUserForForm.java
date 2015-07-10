@@ -18,6 +18,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -317,13 +319,17 @@ public class JFrameSelectUserForForm extends JFrame {
 
 						jListForm.setBorder(BorderFactory
 								.createTitledBorder(""));
-						jListForm
-								.addListSelectionListener(new ListSelectionListener() {
-									public void valueChanged(
-											ListSelectionEvent evt) {
-										jListFormValueChanged(evt);
-									}
-								});
+						jListForm.addPropertyChangeListener(new PropertyChangeListener() {
+							public void propertyChange(PropertyChangeEvent evt) {
+								jListFormPropertyChange(evt);
+							}
+						});
+						jListForm.addListSelectionListener(new ListSelectionListener() {
+							public void valueChanged(
+									ListSelectionEvent evt) {
+								jListFormValueChanged(evt);
+							}
+						});
 					}
 				}
 				{
@@ -530,6 +536,8 @@ public class JFrameSelectUserForForm extends JFrame {
 		if (arrForm.length > 0) {
 			jListForm.setSelectedIndex(0);
 		}
+		
+		System.out.println(listProject.get(index).getUid()+"_"+listProject.get(index).getId());
 
 	}
 
@@ -593,7 +601,7 @@ public class JFrameSelectUserForForm extends JFrame {
 			listNew.addAll(list);
 			 Collections.sort(listOld);
 			 Collections.sort(listNew);
-
+			
 			ListModel listModelOld = new DefaultComboBoxModel(listOld.toArray());
 			ListModel listModelNew = new DefaultComboBoxModel(listNew.toArray());
 
@@ -630,5 +638,9 @@ public class JFrameSelectUserForForm extends JFrame {
 	private void thisWindowClosed(WindowEvent evt) {
 		parent.setVisible(true);
 		parent.setLocationRelativeTo(null);
+	}
+	
+	private void jListFormPropertyChange(PropertyChangeEvent evt) {
+		
 	}
 }

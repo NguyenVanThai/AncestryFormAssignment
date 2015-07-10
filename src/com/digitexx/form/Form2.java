@@ -350,8 +350,10 @@ public class Form2 extends javax.swing.JFrame implements ListSelectionListener {
 			// // indicate the
 			// // state of the
 			// // processing
-			URL url = this.getClass().getResource("loading.gif");
-			ImageIcon image = new ImageIcon(url);
+//			URL url = this.getClass().getResource("loading.gif");
+
+			ImageIcon image = new ImageIcon(getClass().getClassLoader()
+					.getResource("com/digitexx/image/loading.gif"));
 			lblStatus.setIcon(image);
 			dlgProgress.add(BorderLayout.CENTER, lblStatus);
 			dlgProgress.setLocationRelativeTo(jTable);
