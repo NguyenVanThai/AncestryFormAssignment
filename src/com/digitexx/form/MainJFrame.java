@@ -2,6 +2,8 @@ package com.digitexx.form;
 
 import com.cloudgarden.layout.AnchorConstraint;
 import com.cloudgarden.layout.AnchorLayout;
+import com.digitexx.image.ButtonIcon;
+
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,14 +16,21 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
+import javax.swing.GroupLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.SwingUtilities;
@@ -38,7 +47,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainJFrame extends javax.swing.JFrame {
 	private JPanel jPanel1;
-	private JButton jButtonAssignment;
+	private ButtonIcon jButtonAssignment;
 	private JButton jButtonForm1;
 	private JLabel jLabel1;
 
@@ -72,34 +81,34 @@ public class MainJFrame extends javax.swing.JFrame {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setResizable(false);
+			AnchorLayout thisLayout = new AnchorLayout();
+			getContentPane().setLayout(thisLayout);
+			this.setTitle("Choose Type");
+			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("com/digitexx/image/icon.png")).getImage());
+
 			{
 				jPanel1 = new JPanel();
+				getContentPane().add(
+						jPanel1,
+						new AnchorConstraint(1, 1001, 1001, 1,
+								AnchorConstraint.ANCHOR_REL,
+								AnchorConstraint.ANCHOR_REL,
+								AnchorConstraint.ANCHOR_REL,
+								AnchorConstraint.ANCHOR_REL));
 				AnchorLayout jPanel1Layout = new AnchorLayout();
 				jPanel1.setLayout(jPanel1Layout);
-				getContentPane().add(jPanel1, BorderLayout.CENTER);
+				jPanel1.setPreferredSize(new java.awt.Dimension(449, 255));
+				jPanel1.setBackground(new java.awt.Color(202,228,255));
 				{
 					jLabel1 = new JLabel();
-					jPanel1.add(jLabel1, new AnchorConstraint(113, 1000, 253,
-							0, AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL));
 					jLabel1.setText("CHOOSE TYPE");
 					jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36));
-					jLabel1.setPreferredSize(new java.awt.Dimension(510, 46));
 					jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 					jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
 				}
 				{
 					jButtonForm1 = new JButton();
-					jPanel1.add(jButtonForm1, new AnchorConstraint(446, 953,
-							583, 600, AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL,
-							AnchorConstraint.ANCHOR_REL));
-					jButtonForm1.setText("FORM 1");
-					jButtonForm1.setPreferredSize(new java.awt.Dimension(180,
-							45));
+					jButtonForm1.setText("PROJECT STATUS INFORMATION");
 					jButtonForm1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							jButtonForm1ActionPerformed(evt);
@@ -107,16 +116,29 @@ public class MainJFrame extends javax.swing.JFrame {
 					});
 				}
 				{
-					jButtonAssignment = new JButton();
-					jPanel1.add(jButtonAssignment, new AnchorConstraint(446,
-							410, 583, 57, AnchorConstraint.ANCHOR_REL,
+					jButtonAssignment = new ButtonIcon();
+					jPanel1.add(jButtonAssignment, new AnchorConstraint(629, 484, 798, 27, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(jButtonForm1, new AnchorConstraint(629, 976, 801, 508, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL, AnchorConstraint.ANCHOR_REL));
+					jPanel1.add(jLabel1, new AnchorConstraint(178, 1001, 307,
+							1, AnchorConstraint.ANCHOR_REL,
 							AnchorConstraint.ANCHOR_REL,
 							AnchorConstraint.ANCHOR_REL,
 							AnchorConstraint.ANCHOR_REL));
-
+					jLabel1.setPreferredSize(new java.awt.Dimension(449, 33));
+					jLabel1.setBorder(BorderFactory
+							.createEtchedBorder(BevelBorder.LOWERED));
+					jLabel1.setBackground(new java.awt.Color(167,167,167));
+					jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+					jLabel1.setOpaque(true);
+					jButtonForm1.setPreferredSize(new java.awt.Dimension(210, 44));
 					jButtonAssignment.setText("FORM ASSIGNMENT");
-					jButtonAssignment.setPreferredSize(new java.awt.Dimension(
-							180, 45));
+
+					jButtonAssignment.setPreferredSize(new java.awt.Dimension(205, 43));
+//					Icon icon1 = new ImageIcon(getClass().getClassLoader()
+//							.getResource("com/digitexx/image/after.png"));
+//					Icon icon2 = new ImageIcon(getClass().getClassLoader()
+//							.getResource("com/digitexx/image/normal.png"));
+//					jButtonAssignment.setIconAndIconSelected(icon1, icon2);
 
 					jButtonAssignment.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
@@ -126,7 +148,7 @@ public class MainJFrame extends javax.swing.JFrame {
 				}
 			}
 			pack();
-			this.setSize(526, 369);
+			this.setSize(455, 284);
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
@@ -135,8 +157,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
 	private void jButtonAssignmentActionPerformed(ActionEvent evt) {
 		closeFrame();
-		JFrameSelectUserForForm assignment = new JFrameSelectUserForForm(
-				new MainJFrame());
+		FormOneNew assignment = new FormOneNew(new MainJFrame());
 		assignment.setVisible(true);
 		assignment.setLocationRelativeTo(null);
 	}
@@ -144,7 +165,7 @@ public class MainJFrame extends javax.swing.JFrame {
 	private void jButtonForm1ActionPerformed(ActionEvent evt) {
 
 		closeFrame();
-		Form2 assignment = new Form2(new MainJFrame());
+		FormTwo assignment = new FormTwo(new MainJFrame());
 		assignment.setVisible(true);
 		assignment.setLocationRelativeTo(null);
 	}

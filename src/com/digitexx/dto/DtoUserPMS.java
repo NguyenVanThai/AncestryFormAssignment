@@ -16,6 +16,7 @@ public class DtoUserPMS {
 	private int usr_status;
 	private int usr_dept_id;
 	private int usr_pos_id;
+
 	private String usr_code;
 	private String usr_note;
 

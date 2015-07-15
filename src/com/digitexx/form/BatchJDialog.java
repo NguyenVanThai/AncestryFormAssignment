@@ -1,28 +1,30 @@
 package com.digitexx.form;
 
-import com.cloudgarden.layout.AnchorConstraint;
-import com.cloudgarden.layout.AnchorLayout;
+import java.util.List;
 
-import java.awt.BorderLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import com.digitexx.dao.DaoDatabase;
 import com.digitexx.dto.DtoInfo;
+import com.digitexx.dto.DtoInfoBatch;
+import com.digitexx.dto.DtoInfoProject;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -43,39 +45,35 @@ public class BatchJDialog extends javax.swing.JDialog {
 	private JLabel jLabel1;
 	private JScrollPane jScrollPane1;
 	private JTable jTableInfo;
-	private DtoInfo dtoInfo;
+
+	List<DtoInfoBatch> listInfoBatch;
+	private int projectID;
+	private DaoDatabase daoPms;
 
 	/**
 	 * Auto-generated main method to display this JDialog
 	 */
 
-	public BatchJDialog(JFrame frame, DtoInfo dtoInfo) {
-		super(frame);
+	public BatchJDialog(int projectID, List<DtoInfoBatch> listInfoBatch) {
+
 		initGUI();
-		this.dtoInfo = dtoInfo;
-		String[] totalColumn = new String[] { "folder_batch", "batch", "date",
-				"form", "total", "total_form", "total_finish",
-				"total_unfinish", "total_user", "list_userb" };
-		DefaultTableModel jTable1Model = new DefaultTableModel(null,
-				totalColumn) {
+		this.listInfoBatch = listInfoBatch;
+		this.projectID = projectID;
+		String[] totalColumn = new String[] { "FolderBatch", "BatchName", "DeliveryDate",
+				"FormName", "TotalImage", "UnkeyTotalImage", "FinishTotalImage",
+				"UnfinishTotalImage", "TotalRecord", "%Finish", "TotalUser" };
+		DefaultTableModel model = new DefaultTableModel(null, totalColumn) {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
 				return false;
 			}
 		};
-		String[][] data = {
-				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
-						"Form 1", "300", "150", "100", "200", "500",
-						"Tuan, Toan, Diep" },
-				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
-						"Form 2", "400", "250", "200", "200", "500",
-						"Vu, Toan, Diep" },
-				{ "005_20150727", "2655415_2_00_1340137", "2015-06-06",
-						"Form 3", "500", "350", "200", "300", "500",
-						"Thai, Toan, Diep" } };
-		//jTable1Model.addRow(dtoInfo.toArray(dtoInfo.getDate()));
-		TableModel jTableModel = new DefaultTableModel(
-				data, totalColumn);
-		jTableInfo.setModel(jTableModel);
+
+		for (DtoInfoBatch a : listInfoBatch) {
+
+			model.addRow(a.toArray());
+		}
+		jTableInfo.setModel(model);
+//		this.setLocationRelativeTo(null);
 	}
 
 	private void initGUI() {
@@ -83,20 +81,27 @@ public class BatchJDialog extends javax.swing.JDialog {
 			GroupLayout thisLayout = new GroupLayout(
 					(JComponent) getContentPane());
 			getContentPane().setLayout(thisLayout);
+			this.setTitle("Batch Detail Information");
+			this.setIconImage(new ImageIcon(getClass().getClassLoader().getResource("com/digitexx/image/icon.png")).getImage());
 			{
 				jPanel1 = new JPanel();
 				GroupLayout jPanel1Layout = new GroupLayout(
 						(JComponent) jPanel1);
 				jPanel1.setLayout(jPanel1Layout);
-				jPanel1.setPreferredSize(new java.awt.Dimension(770, 397));
+//				jPanel1.setPreferredSize(new java.awt.Dimension(770, 397));
 				{
 					jScrollPane1 = new JScrollPane();
 					{
 
 						jTableInfo = new JTable();
 						jScrollPane1.setViewportView(jTableInfo);
-						jTableInfo.setPreferredSize(new java.awt.Dimension(767, 107));
+
 						jTableInfo.setRowHeight(30);
+						jTableInfo.addMouseListener(new MouseAdapter() {
+							public void mouseClicked(MouseEvent evt) {
+								jTableInfoMouseClicked(evt);
+							}
+						});
 
 					}
 				}
@@ -109,11 +114,11 @@ public class BatchJDialog extends javax.swing.JDialog {
 						jScrollPane2 = new JScrollPane();
 						jScrollPane2.setBounds(0, 25, 376, 253);
 						{
-							ListModel jList1Model = new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
+							
 							jList1 = new JList();
 							jScrollPane2.setViewportView(jList1);
-							jList1.setModel(jList1Model);
+							jList1.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+
 						}
 					}
 					{
@@ -153,7 +158,7 @@ public class BatchJDialog extends javax.swing.JDialog {
 					GroupLayout jLabel1Layout = new GroupLayout(
 							(JComponent) jLabel1);
 					jLabel1.setLayout(jLabel1Layout);
-					jLabel1.setText("BATCH INFORMATION");
+					jLabel1.setText("BATCH DETAIL INFORMATION");
 					jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36));
 					jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 					jLabel1Layout.setVerticalGroup(jLabel1Layout
@@ -161,26 +166,52 @@ public class BatchJDialog extends javax.swing.JDialog {
 					jLabel1Layout.setHorizontalGroup(jLabel1Layout
 							.createSequentialGroup());
 				}
-				jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup()
-					.addComponent(jLabel1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
-					.addComponent(jScrollPane1, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE)
-					.addComponent(jPanel3, GroupLayout.Alignment.LEADING, 0, 770, Short.MAX_VALUE));
-				jPanel1Layout.setVerticalGroup(jPanel1Layout.createSequentialGroup()
-					.addGap(8)
-					.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addGap(102)
-					.addComponent(jPanel3, 0, 104, Short.MAX_VALUE));
+				jPanel1Layout.setHorizontalGroup(jPanel1Layout
+						.createParallelGroup()
+						.addComponent(jLabel1, GroupLayout.Alignment.LEADING,
+								0, 770, Short.MAX_VALUE)
+						.addComponent(jScrollPane1,
+								GroupLayout.Alignment.LEADING, 0, 770,
+								Short.MAX_VALUE)
+						.addComponent(jPanel3, GroupLayout.Alignment.LEADING,
+								0, 770, Short.MAX_VALUE));
+				jPanel1Layout
+						.setVerticalGroup(jPanel1Layout
+								.createSequentialGroup()
+								.addGap(8)
+								.addComponent(jLabel1,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.PREFERRED_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(
+										LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jScrollPane1, 0, 225,
+										Short.MAX_VALUE)
+								.addPreferredGap(
+										LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jPanel3, 0, 104, Short.MAX_VALUE));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 					.addComponent(jPanel1, 0, 397, Short.MAX_VALUE));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 					.addComponent(jPanel1, 0, 770, Short.MAX_VALUE));
-			this.setSize(786, 436);
+			this.setSize(1231, 484);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void jTableInfoMouseClicked(MouseEvent evt) {
+		int row = jTableInfo.getSelectedRow();
+		daoPms = new DaoDatabase("10.10.5.10", "5432", "pms", "db_09_000_pms",
+				"ps_pms", "digipms");
+		
+		List<String> listUser = daoPms.getUserOfForm(projectID, listInfoBatch
+				.get(row).getFormId());
+		System.out.println(listUser.size() + "");
+		ListModel jList1Model = new DefaultComboBoxModel(
+				listUser.toArray());
+		jList1.setModel(jList1Model);
 	}
 
 }

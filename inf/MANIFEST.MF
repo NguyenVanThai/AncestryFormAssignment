@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.8.0_25 (Taluan - Sun Microsystems Inc.)
+Main-Class: com.digitexx.form.MainJFrame
+Class-Path: lib/miglayout-3.5.5.jar lib/postgresql-9.2-1002.jdbc4.jar 
+ lib/TableLayout.jar
+X-COMMENT: Main-Class will be added automatically by build

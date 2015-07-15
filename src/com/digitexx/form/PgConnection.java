@@ -47,9 +47,9 @@ public class PgConnection {
 
 	public void loadConnectionFromProperties(String propertiesName) {
 		try {
-			final Path path = Paths.get(PATH_PROPERTIES_FILE);
+			final Path path = Paths.get(propertiesName);
 			if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
-				props.load(new FileInputStream(PATH_PROPERTIES_FILE));
+				props.load(new FileInputStream(propertiesName));
 			} else {
 				props.load(getClass().getClassLoader().getResourceAsStream(propertiesName));
 			}
